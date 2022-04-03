@@ -6,7 +6,7 @@ class RecipesController < ApplicationController
   private
 
   def find_recipes(query)
-    recipes = query.present? ? Recipe.by_ingredients(query): Recipe.random(16)
+    recipes = query.present? ? Recipe.by_ingredients(query) : Recipe.random(16)
     recipes.sort_by_ratings
     recipes.limit(16)
   end
