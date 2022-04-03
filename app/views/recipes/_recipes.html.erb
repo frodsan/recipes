@@ -1,7 +1,7 @@
 <% if recipes.any? %>
   <ul id="recipes" class="grid grid-cols-1 md:grid-cols-4 gap-5 cursor-pointer">
     <% recipes.each do |recipe| %>
-      <li class="col-span-1 b -white w-64 rounded overflow-hidden shadow-lg" data-controller="recipe" data-recipe-hidden-class="hidden">
+      <li class="col-span-1 bg-white w-64 rounded overflow-hidden shadow-lg" data-controller="recipe" data-recipe-hidden-class="hidden">
         <div data-recipe-target="description" data-action="click->recipe#toggle">
           <%= image_tag(recipe.image, class: "w-64 h-48 object-cover shadow-sm", alt: recipe.title) %>
           <div class="px-6 py-4">
