@@ -87,8 +87,8 @@ to use [Postgres' search features][pgsearch].
 
 #### Searching recipes by ingredients
 
-Since `jsonb` is used for the ingredients field, it is possible to parse
-each string in the JSON array into a `tsvector`. This is a sorted list of
+Since the ingredients field uses `jsonb`, it is possible to parse
+each string in the JSON array into a `tsvector`, a sorted list of
 normalized lexemes:
 
 ```sql
@@ -101,7 +101,7 @@ normalized lexemes:
  '1':1,7 'all-purpos':3 'cornmeal':10 'cup':2,8 'flour':6 'purpos':5 'yellow':9
 ```
 
-Then, I've decided to use the `websearch_to_tsquery` function which provides
+Then, I decided to use the `websearch_to_tsquery` function, which provides
 search capabilities sort of like the ones used by search engines:
 
 ```sql
@@ -124,7 +124,7 @@ search capabilities sort of like the ones used by search engines:
  f
 ```
 
-This is how is implemented in ActiveRecord:
+This is how is implemented in the model:
 
 ```ruby
 class Recipe < ApplicationRecord
@@ -134,13 +134,13 @@ class Recipe < ApplicationRecord
 end
 ```
 
-Also, I've created an index on the function result to speed up the queries like:
+Also, I've created an index on the function result to speed up the queries:
 
 ```ruby
 add_index :recipes, "to_tsvector('english', ingredients)", using: :gin
 ```
 
-It's being used as seen here:
+Explaining the query shows that the query uses the index:
 
 ```
 > Recipe.by_ingredients('pasta, eggplant').explain
@@ -154,7 +154,7 @@ EXPLAIN for: SELECT "recipes".* FROM "recipes" WHERE (to_tsvector('english', ing
 
 #### Putting everything together
 
-The rest is common Rails code which can be found here:
+The rest is standard Rails code which can be found here:
 
 - [app/models/recipe.rb](app/models/recipe.rb)
 - [app/controllers/recipes_controller.rb](app/controllers/recipes_controller.rb)
