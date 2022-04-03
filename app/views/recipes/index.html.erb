@@ -1,0 +1,32 @@
+<main>
+  <div class="bg-[#066]">
+    <div class="max-w-6xl mx-auto px-5 py-10">
+      <%= link_to root_path do %>
+        <h1 class="font-bold text-4xl mb-8 text-white">
+          Save a
+          <span class="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-[#00f872] relative inline-block">
+            <span class="relative text-[#066]">Penny</span>
+          </span>
+        </h1>
+      <% end %>
+
+      <%= form_tag(recipes_path, method: :get) do %>
+        <p class="mb-2 text-white">Find recipes by the ingredients you have at home:</p>
+        <div class="flex rounded">
+          <%= text_field_tag :query, params[:query], placeholder: "pasta, tomato, carrots", class: "px-4 py-2 w-80 outline-none", autofocus: true %>
+          <%= button_tag name: "", class: "font-semibold px-4 text-white text-[#066] bg-[#00f872]" do %>
+            <svg class="w-6 h-6 text-gray-600" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24">
+              <path d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
+            </svg>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto pt-10 pb-20 px-5">
+    <h2 class="font-bold text-2xl mb-4">Recipe results</h2>
+    <%= render "recipes", recipes: @recipes %>
+  </div>
+</main>
