@@ -140,7 +140,7 @@ Also, I've created an index on the function result to speed up the queries:
 add_index :recipes, "to_tsvector('english', ingredients)", using: :gin
 ```
 
-Explaining the query shows that the query uses the index:
+Explaining the query shows that the it uses the index:
 
 ```
 > Recipe.by_ingredients('pasta, eggplant').explain
